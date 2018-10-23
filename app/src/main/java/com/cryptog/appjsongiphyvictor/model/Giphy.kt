@@ -2,9 +2,7 @@ package com.cryptog.appjsongiphyvictor.model
 
 import java.io.Serializable
 
-data class Giphy(val images : Images) : Serializable{
-
-}
+data class Giphy(val images : Images) : Serializable
 
 data class Images(val original : OriginalGiphy) : Serializable
 

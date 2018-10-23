@@ -12,16 +12,15 @@ import com.cryptog.appjsongiphyvictor.model.Giphy
 
 class GiphyAdapter : RecyclerView.Adapter<GiphyAdapter.GiphyViewHolder>() {
 
-    private val listGiphy = mutableListOf<Giphy>()
+    private val listGiphy : MutableList<Giphy> = ArrayList()
     private var displayWidth: Int = 0
     private var onCustomClickListener: CustomOnClickListener? = null
 
     fun update(listGiphy: MutableList<Giphy>) {
-        val oldSize = this.listGiphy.size
         this.listGiphy.clear()
         this.listGiphy.addAll(listGiphy)
         this.displayWidth = displayWidth
-        notifyItemRangeChanged(oldSize, listGiphy.size)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): GiphyViewHolder {
@@ -46,13 +45,13 @@ class GiphyAdapter : RecyclerView.Adapter<GiphyAdapter.GiphyViewHolder>() {
         val currentHidth: Double =
             (currentWidth / currentGiphy.images.original.width) * currentGiphy.images.original.height
 
-        with(currentGiphy) {
-            val layoutParams = ConstraintLayout.LayoutParams(
-                currentWidth.toInt(),
-                currentHidth.toInt()
-            )
-            viewHolder.itemView.layoutParams = layoutParams
-        }
+
+        val layoutParams = ConstraintLayout.LayoutParams(
+            currentWidth.toInt(),
+            currentHidth.toInt()
+        )
+        viewHolder.itemView.layoutParams = layoutParams
+
 
         with(viewHolder) {
             Glide
