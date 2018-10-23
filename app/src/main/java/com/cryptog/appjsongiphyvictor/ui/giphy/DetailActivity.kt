@@ -1,8 +1,9 @@
-package com.cryptog.appjsongiphyvictor
+package com.cryptog.appjsongiphyvictor.ui.giphy
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.cryptog.appjsongiphyvictor.R
 import com.cryptog.appjsongiphyvictor.model.Giphy
 import kotlinx.android.synthetic.main.activity_detail.*
 

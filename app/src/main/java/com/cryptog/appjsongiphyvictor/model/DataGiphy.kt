@@ -1,6 +1,4 @@
-package com.cryptog.appjsongiphyvictor
+package com.cryptog.appjsongiphyvictor.model
 
-import com.cryptog.appjsongiphyvictor.Retrofit.GiphyRetrofit
-
-data class DataGiphy (val data: ArrayList<GiphyRetrofit> = ArrayList<GiphyRetrofit>())
+data class DataGiphy(val data: MutableList<Giphy> = ArrayList())
 
