@@ -15,7 +15,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        giphy = intent.getSerializableExtra("CurrentGiphy") as Giphy
+        giphy = intent.getSerializableExtra(MainActivity.FLAG_CURRENT_GIPHY) as Giphy
         giphy?.images?.original?.url?.let {
             Glide.with(this)
                 .load(it)

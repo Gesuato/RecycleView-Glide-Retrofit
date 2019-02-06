@@ -1,6 +1,6 @@
 package com.cryptog.appjsongiphyvictor.ui.giphy
 
-import android.annotation.SuppressLint
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
@@ -11,7 +11,6 @@ import com.cryptog.appjsongiphyvictor.CustomOnClickListener
 import com.cryptog.appjsongiphyvictor.R
 import com.cryptog.appjsongiphyvictor.adapters.GiphyAdapter
 import com.cryptog.appjsongiphyvictor.model.Giphy
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -29,25 +28,27 @@ class MainActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         recyclerViewGiphy.layoutManager = layoutManager
         recyclerViewGiphy.adapter = this.listGiphyAdapter
+
         this.listGiphyAdapter.setOnCustomItemClickListener(object :
-            CustomOnClickListener {
+                CustomOnClickListener {
             override fun onCustomItemClickListener(giphy: Giphy) {
-                intentG.putExtra("CurrentGiphy", giphy)
+                intentG.putExtra(FLAG_CURRENT_GIPHY, giphy)
                 startActivity(intentG)
             }
         })
-        subscribeToGiphyList()
+        subscribeToGiphyList("Superman")
     }
 
-    @SuppressLint("CheckResult")
-    private fun subscribeToGiphyList() {
-        viewModel.subscribeToGiphyList("Superman")
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                listGiphyAdapter.submitList(it)
-                progressBar.visibility = View.GONE
-            }, {
-                it.printStackTrace()
-            })
+    private fun subscribeToGiphyList(query: String) {
+        progressBar.visibility = View.VISIBLE
+        viewModel.subscribeToGiphyList(query).observe(this, Observer {
+            listGiphyAdapter.submitList(it)
+            progressBar.visibility = View.GONE
+
+        })
+    }
+
+    companion object {
+        const val FLAG_CURRENT_GIPHY = "FLAG_CURRENT_GIPHY"
     }
 }
